@@ -14,7 +14,7 @@
   <body>
     <main>
       <form class="form" id="search-form">
-        <div class="search-container">
+        <label>
           <input
             type="text"
             id="search-input"
@@ -24,7 +24,7 @@
             required
           />
           <button type="submit" class="search-button">Search</button>
-        </div>
+        </label>
       </form>
       <div class="loader-wrap" id="loader-wrap" aria-live="polite">
         <p class="loading-text">Loading images, please wait...</p>
@@ -35,6 +35,7 @@
         id="gallery"
         aria-label="Gallery of search results"
       ></ul>
+      <button type="button" class="btn">Load more</button>
     </main>
     <script type="module" src="./main.js"></script>
   </body>

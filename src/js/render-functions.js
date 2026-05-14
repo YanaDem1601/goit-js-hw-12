@@ -1,51 +1,44 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const gallery = document.getElementById('gallery');
-const loaderWrap = document.getElementById('loader-wrap');
+const gallery = document.querySelector('.gallery');
+const loaderWrap = document.querySelector('.loader-wrap');
+const loadMoreBtn = document.querySelector('.btn');
 
-let lightbox = new SimpleLightbox('.gallery a', {
+const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
   overlayOpacity: 0.8,
 });
 
-
 export function createGallery(images) {
   const markup = images
-    .map((image) => `
-      <li class="gallery-item">
-        <a href="${image.largeImageURL}" class="gallery-link">
-          <img 
-            src="${image.webformatURL}" 
-            alt="${image.tags}" 
-            class="gallery-image"
-            loading="lazy"
+    .map(({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => `
+<li class="gallery-item">
+  <a href="${largeImageURL}" class="gallery-link">
+    <img class="gallery-image" src="${webformatURL}" 
+         alt="${tags}" 
           />
-        </a>
-        <div class="info">
-          <div class="info-item">
-            <span class="info-label">Likes</span>
-            <span class="info-value">${image.likes.toLocaleString()}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Views</span>
-            <span class="info-value">${image.views.toLocaleString()}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Comments</span>
-            <span class="info-value">${image.comments.toLocaleString()}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Downloads</span>
-            <span class="info-value">${image.downloads.toLocaleString()}</span>
-          </div>
-        </div>
-      </li>
+  </a>
+  <div class="info">
+  <p><span class="info-label">Likes</span><span>${likes}</span></p>
+  <p><span class="info-label">Views</span><span>${views}</span></p>
+  <p><span class="info-label">Comments</span><span>${comments}</span></p>
+  <p><span class="info-label">Downloads</span><span>${downloads}</span></p>
+  </div>
+</li>
     `)
     .join('');
 
-  gallery.innerHTML = markup;
+  gallery.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();  
 }
 
@@ -53,11 +46,22 @@ export function clearGallery() {
   gallery.innerHTML = '';
 }
 
-// Loader
 export function showLoader() {
+  loaderWrap.classList.remove('is-hidden');
   loaderWrap.classList.add('show');
+  
 }
 
 export function hideLoader() {
+  loaderWrap.classList.add('is-hidden');
   loaderWrap.classList.remove('show');
+  
+}
+
+export function showLoadMoreButton() {
+  loadMoreBtn.classList.add('visible');
+}
+
+export function hideLoadMoreButton() {
+  loadMoreBtn.classList.remove('visible');
 }
