@@ -12,12 +12,12 @@
     <script type="module" crossorigin src="/goit-js-hw-12/index.js"></script>
     <link rel="modulepreload" crossorigin href="/goit-js-hw-12/assets/vendor-73qhTu8_.js">
     <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/vendor-DumFYO8Z.css">
-    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-BrBsbNNF.css">
+    <link rel="stylesheet" crossorigin href="/goit-js-hw-12/assets/index-Na-gem9G.css">
   </head>
   <body>
     <main>
       <form class="form" id="search-form">
-        <div class="search-container">
+        <label>
           <input
             type="text"
             id="search-input"
@@ -27,7 +27,7 @@
             required
           />
           <button type="submit" class="search-button">Search</button>
-        </div>
+        </label>
       </form>
       <div class="loader-wrap" id="loader-wrap" aria-live="polite">
         <p class="loading-text">Loading images, please wait...</p>
@@ -38,6 +38,7 @@
         id="gallery"
         aria-label="Gallery of search results"
       ></ul>
+      <button type="button" class="btn">Load more</button>
     </main>
   </body>
 </html>

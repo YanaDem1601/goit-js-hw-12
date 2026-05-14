@@ -1,31 +1,16 @@
-import{a as f,S as u,i as n}from"./assets/vendor-73qhTu8_.js";(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))i(t);new MutationObserver(t=>{for(const r of t)if(r.type==="childList")for(const a of r.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&i(a)}).observe(document,{childList:!0,subtree:!0});function e(t){const r={};return t.integrity&&(r.integrity=t.integrity),t.referrerPolicy&&(r.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?r.credentials="include":t.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function i(t){if(t.ep)return;t.ep=!0;const r=e(t);fetch(t.href,r)}})();const m="55821000-c477eb790cad5f38062000930",y="https://pixabay.com/api/";async function g(o){const s={key:m,q:o,image_type:"photo",orientation:"horizontal",safesearch:!0,per_page:12};try{return(await f.get(y,{params:s})).data}catch(e){throw console.error("Pixabay API error:",e),e}}const p=document.getElementById("gallery"),d=document.getElementById("loader-wrap");let h=new u(".gallery a",{captionsData:"alt",captionDelay:250,overlayOpacity:.8});function v(o){const s=o.map(e=>`
-      <li class="gallery-item">
-        <a href="${e.largeImageURL}" class="gallery-link">
-          <img 
-            src="${e.webformatURL}" 
-            alt="${e.tags}" 
-            class="gallery-image"
-            loading="lazy"
+import{a as S,S as q,i as n}from"./assets/vendor-73qhTu8_.js";(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))o(e);new MutationObserver(e=>{for(const r of e)if(r.type==="childList")for(const c of r.addedNodes)c.tagName==="LINK"&&c.rel==="modulepreload"&&o(c)}).observe(document,{childList:!0,subtree:!0});function a(e){const r={};return e.integrity&&(r.integrity=e.integrity),e.referrerPolicy&&(r.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?r.credentials="include":e.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function o(e){if(e.ep)return;e.ep=!0;const r=a(e);fetch(e.href,r)}})();const B="55821000-c477eb790cad5f38062000930",M="https://pixabay.com/api/";async function f(s,t=1){const a={key:B,q:s,image_type:"photo",orientation:"horizontal",safesearch:!0,page:t,per_page:15};return(await S.get(M,{params:a})).data}const m=document.querySelector(".gallery"),d=document.querySelector(".loader-wrap"),y=document.querySelector(".btn"),P=new q(".gallery a",{captionsData:"alt",captionDelay:250,overlayOpacity:.8});function g(s){const t=s.map(({webformatURL:a,largeImageURL:o,tags:e,likes:r,views:c,comments:v,downloads:w})=>`
+<li class="gallery-item">
+  <a href="${o}" class="gallery-link">
+    <img class="gallery-image" src="${a}" 
+         alt="${e}" 
           />
-        </a>
-        <div class="info">
-          <div class="info-item">
-            <span class="info-label">Likes</span>
-            <span class="info-value">${e.likes.toLocaleString()}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Views</span>
-            <span class="info-value">${e.views.toLocaleString()}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Comments</span>
-            <span class="info-value">${e.comments.toLocaleString()}</span>
-          </div>
-          <div class="info-item">
-            <span class="info-label">Downloads</span>
-            <span class="info-value">${e.downloads.toLocaleString()}</span>
-          </div>
-        </div>
-      </li>
-    `).join("");p.innerHTML=s,h.refresh()}function L(){p.innerHTML=""}function w(){d.classList.add("show")}function l(){d.classList.remove("show")}const b=document.getElementById("search-form"),c=document.getElementById("search-input");b.addEventListener("submit",async o=>{o.preventDefault();const s=c.value.trim();if(s===""){n.error({title:"Error",message:"Please enter a search query!",position:"topRight"}),c.focus();return}L(),w();try{const e=await g(s);if(l(),e.hits.length===0){n.info({title:"",message:"Sorry, there are no images matching your search query. Please try again!",position:"topRight"});return}v(e.hits)}catch(e){l(),n.error({title:"Error",message:"Something went wrong. Please try again later.",position:"topRight"}),console.error(e)}});
+  </a>
+  <div class="info">
+  <p><span class="info-label">Likes</span><span>${r}</span></p>
+  <p><span class="info-label">Views</span><span>${c}</span></p>
+  <p><span class="info-label">Comments</span><span>${v}</span></p>
+  <p><span class="info-label">Downloads</span><span>${w}</span></p>
+  </div>
+</li>
+    `).join("");m.insertAdjacentHTML("beforeend",t),P.refresh()}function E(){m.innerHTML=""}function h(){d.classList.remove("is-hidden"),d.classList.add("show")}function L(){d.classList.add("is-hidden"),d.classList.remove("show")}function b(){y.classList.add("visible")}function u(){y.classList.remove("visible")}const $=document.querySelector(".btn"),O=document.getElementById("search-form"),I=document.getElementById("search-input");let l="",i=1,p=0;O.addEventListener("submit",async s=>{if(s.preventDefault(),l=I.value.trim(),!l){n.error({message:"Please enter a search query!"});return}i=1,E(),h();try{u();const t=await f(l,i);if(p=t.totalHits,t.hits.length===0){n.error({message:"Sorry, there are no images matching your search query. Please try again!"});return}g(t.hits);const a=Math.ceil(p/15);i<a?b():(u(),n.info({message:"We're sorry, but you've reached the end of search results."}))}catch{n.error({message:"Something went wrong. Try again!"})}finally{L()}});$.addEventListener("click",async()=>{i+=1;try{h(),u();const s=await f(l,i);g(s.hits);const t=Math.ceil(p/15);i>=t?(u(),n.info({message:"We're sorry, but you've reached the end of search results."})):b();const o=document.querySelector(".gallery a").getBoundingClientRect();window.scrollBy({top:o.height*2,behavior:"smooth"})}catch{n.error({message:"Error loading more images"})}finally{L()}});
 //# sourceMappingURL=index.js.map
